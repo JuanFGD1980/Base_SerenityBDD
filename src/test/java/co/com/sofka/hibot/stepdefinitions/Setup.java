@@ -12,7 +12,7 @@ import static net.serenitybdd.screenplay.actors.OnStage.theActorCalled;
 public class Setup {
     @Managed()
     protected WebDriver webDriver;
-    protected Actor actor = new Actor("Juan Felipe");
+    protected Actor actor = new Actor("The User");
 
     private void setupUser(String name, WebDriver webDriver){
         OnStage.setTheStage(new OnlineCast());
