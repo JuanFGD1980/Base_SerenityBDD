@@ -1,0 +1,87 @@
+group 'co.com.sofka'
+version '1.0-SNAPSHOT'
+
+defaultTasks 'clean', 'test', 'aggregate'
+
+repositories {
+    mavenCentral()
+}
+
+buildscript {
+    repositories{
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies{
+        classpath("net.serenity-bdd:serenity-gradle-plugin:3.2.0")
+        classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:3.0")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'java-library'
+apply plugin: 'idea'
+apply plugin: 'net.serenity-bdd.aggregator'
+apply plugin: 'org.sonarqube'
+apply plugin: 'eclipse'
+apply plugin: "net.serenity-bdd.serenity-gradle-plugin"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+ext {
+    serenityCoreVersion = '3.2.0'
+    serenityCucumberVersion = '3.2.0'
+    junitVersion = '4.13.2'
+    junitJupiterVersion = '5.8.2'
+    apachePoiVersion = '3.17'
+    logbackVersion = '1.2.10'
+}
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+dependencies {
+    /*implementation "ch.qos.logback:logback-classic:${logbackVersion}"*/
+    testImplementation  group: 'net.serenity-bdd',      name: 'serenity-junit5',                version: serenityCoreVersion
+    testImplementation  group: 'net.serenity-bdd',      name: 'serenity-core',                  version: serenityCoreVersion
+    testImplementation  group: 'net.serenity-bdd',      name: 'serenity-junit',                 version: serenityCoreVersion
+    testImplementation  group: 'net.serenity-bdd',      name: 'serenity-screenplay',            version: serenityCoreVersion
+    testImplementation  group: 'net.serenity-bdd',      name: 'serenity-screenplay-webdriver',  version: serenityCoreVersion
+    testImplementation  group: 'net.serenity-bdd',      name: 'serenity-single-page-report',    version: serenityCoreVersion
+    testImplementation  group: 'net.serenity-bdd',      name: 'serenity-assertions',            version: serenityCoreVersion
+    testImplementation  group: 'net.serenity-bdd',      name: 'serenity-ensure',                version: serenityCoreVersion
+    testImplementation  group: 'net.serenity-bdd',      name: 'serenity-screenplay-rest',       version: serenityCoreVersion
+    implementation      group: 'net.serenity-bdd',      name: 'serenity-cucumber',              version: serenityCucumberVersion
+
+    implementation      group: 'com.sikulix',               name: 'sikulixapi',             version: '2.0.4'
+    implementation      group: 'org.apache.poi',            name: 'poi-ooxml',              version: apachePoiVersion
+    implementation      group: 'com.oracle.database.jdbc',  name: 'ojdbc10',                version: '19.11.0.0'
+    implementation      group: 'com.ibm.mq',                name: 'com.ibm.mq.allclient',   version: '9.1.1.0'
+    implementation      group: 'log4j',                     name: 'log4j',                  version: '1.2.17'
+
+    testImplementation  group: 'junit',                 name: 'junit',                  version: junitVersion
+    testImplementation  group: 'org.junit.jupiter',     name: 'junit-jupiter-api',      version: junitJupiterVersion
+    testImplementation  group: 'org.junit.jupiter',     name: 'junit-jupiter-engine',   version: junitJupiterVersion
+
+    implementation group: 'com.github.javafaker', name: 'javafaker', version: '1.0.2'
+
+}
+
+test {
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
+}
+
+serenity {
+    // Specify the root package of any JUnit acceptance tests to appear in the Serenity report
+    testRoot = "starter"
+    // Specify the root directory of any Cucumber feature files
+    requirementsDir = "src/test/resources/features"
+
+}
+
+gradle.startParameter.continueOnFailure = true
+
+test.finalizedBy(aggregate)
