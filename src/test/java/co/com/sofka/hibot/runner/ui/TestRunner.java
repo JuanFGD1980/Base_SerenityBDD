@@ -1,4 +1,4 @@
-package co.com.sofka.hibot.runner;
+package co.com.sofka.hibot.runner.ui;
 
 import io.cucumber.junit.CucumberOptions;
 import net.serenitybdd.cucumber.CucumberWithSerenity;
@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
         snippets = CucumberOptions.SnippetType.CAMELCASE,
         features = {"src/test/resources/features/"},
         glue = {"co.com.sofka.hibot.stepdefinitions"},
-        tags = ""
+        tags = "@contacto1"
 )
 
 public class TestRunner {

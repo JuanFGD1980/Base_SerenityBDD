@@ -1,4 +1,4 @@
-package co.com.sofka.hibot.task;
+package co.com.sofka.hibot.task.ui.login;
 
 import co.com.sofka.hibot.userinterfaces.HibotPage;
 import net.serenitybdd.screenplay.Actor;
