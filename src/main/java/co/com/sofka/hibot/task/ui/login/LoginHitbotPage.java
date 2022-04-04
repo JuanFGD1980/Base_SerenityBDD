@@ -7,17 +7,17 @@ import net.serenitybdd.screenplay.actions.Enter;
 
 import static co.com.sofka.hibot.userinterfaces.ui.login.PageLogin.*;
 
-public class Login implements Task {
+public class LoginHitbotPage implements Task {
 
     private String user;
     private String password;
 
-    public Login WithUser(String user) {
+    public LoginHitbotPage WithUser(String user) {
         this.user = user;
         return this;
     }
 
-    public Login andPassword(String password) {
+    public LoginHitbotPage andPassword(String password) {
         this.password = password;
         return this;
     }
@@ -36,8 +36,8 @@ public class Login implements Task {
         );
     }
 
-    public static Login login(){
-        return new Login();
+    public static LoginHitbotPage loginHitbotPage(){
+        return new LoginHitbotPage();
     }
 
 }

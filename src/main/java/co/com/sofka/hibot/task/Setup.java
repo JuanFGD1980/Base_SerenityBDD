@@ -1,4 +1,4 @@
-package co.com.sofka.hibot.stepdefinitions;
+package co.com.sofka.hibot.task;
 
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;

@@ -1,6 +1,8 @@
 package co.com.sofka.hibot.stepdefinitions.ui.login;
 
-import co.com.sofka.hibot.stepdefinitions.Setup;
+import co.com.sofka.hibot.controllers.ui.LoginController;
+import co.com.sofka.hibot.controllers.ui.StartBrowserWebController;
+import co.com.sofka.hibot.task.Setup;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -9,14 +11,12 @@ import org.assertj.core.api.Assertions;
 
 import java.util.Properties;
 
-import static co.com.sofka.hibot.task.ui.login.Login.login;
-import static co.com.sofka.hibot.task.ui.login.OpenHibotPage.openHibotPage;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 
-public class StepExample extends Setup {
+public class LoginStepDefinitios extends Setup {
 
 
-    public static Logger LOGGER = Logger.getLogger(StepExample.class);
+    public static Logger LOGGER = Logger.getLogger(LoginStepDefinitios.class);
     Properties properties = new Properties();
 
 
@@ -24,10 +24,8 @@ public class StepExample extends Setup {
     @Given("the user is on the page of hibot")
     public void theUserIsOnThePageOfHibot() {
         try {
-            actorSetupTheBrowser(actor.getName());
-            theActorInTheSpotlight().wasAbleTo(
-                    openHibotPage()
-            );
+            StartBrowserWebController startBrowserWebController = new StartBrowserWebController();
+            startBrowserWebController.OpenHitbotPage();
             LOGGER.info("Carga la pagina de inicio");
         } catch (Exception e) {
             LOGGER.warn(e.getMessage());
@@ -39,11 +37,8 @@ public class StepExample extends Setup {
     public void theUserEntersTheUsernameAndPassword() {
 
         try {
-            theActorInTheSpotlight().wasAbleTo(
-                    login()
-                            .WithUser("1")
-                            .andPassword("2")
-            );
+            LoginController loginController = new LoginController();
+            loginController.LoginPage();
             LOGGER.info("Registro en la pagina");
         } catch (Exception e) {
             LOGGER.warn(e.getMessage());
